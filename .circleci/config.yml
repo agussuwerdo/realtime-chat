@@ -1,0 +1,36 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5
+
+jobs:
+  install_dependencies:
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: make install
+
+  build_and_deploy:
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          name: Build the client and server
+          command: make build
+      - run:
+          name: Install Vercel CLI
+          command: npm install vercel
+      - run:
+          name: Deploy to Vercel
+          command: VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - install_dependencies
+      - build_and_deploy:
+          requires:
+            - install_dependencies

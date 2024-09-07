@@ -1,0 +1,32 @@
+.vercel
+
+# Ignore node_modules from client and server (Vercel installs them during the build)
+client/node_modules
+server/node_modules
+
+# Ignore local environment files (these should not be deployed)
+client/.env
+server/.env
+
+# Ignore React build directory (it will be generated during the Vercel build process)
+/client/*
+!/client/build
+/client/build/*
+!/client/build/**
+
+
+# Ignore test files and directories
+client/__tests__
+client/src/**/*.test.js
+server/__tests__
+server/**/*.test.js
+
+# Ignore logs
+client/logs
+server/logs
+
+# Ignore editor or OS-generated files
+.DS_Store
+Thumbs.db
+.vscode
+.idea
