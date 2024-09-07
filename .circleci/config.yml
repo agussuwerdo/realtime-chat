@@ -23,14 +23,11 @@ jobs:
           name: Install dependencies in the client folder
           command: cd client && npm install
       - run:
-          name: Build React app
-          command: cd client && npm run build
+          name: Install Vercel CLI
+          command: npm install vercel
       - run:
           name: Build the client and server
           command: npm run build
-      - run:
-          name: Install Vercel CLI
-          command: npm install vercel
       - run:
           name: Deploy to Vercel
           command: |

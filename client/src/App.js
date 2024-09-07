@@ -10,11 +10,6 @@ const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
   useTLS: true,
 });
 
-console.log('pusher', pusher);
-console.log('process.env', process.env);
-console.log('REACT_APP_PUSHER_KEY', process.env.REACT_APP_PUSHER_KEY);
-console.log('REACT_APP_PUSHER_CLUSTER', process.env.REACT_APP_PUSHER_CLUSTER);
-
 function App() {
   const [username, setUsername] = useState(() => {
     return localStorage.getItem("username") || "";
