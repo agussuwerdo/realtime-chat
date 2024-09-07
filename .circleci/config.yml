@@ -11,6 +11,11 @@ jobs:
       - run:
           name: Print folder structure
           command: ls -R  # Print the entire folder structure recursively
+
+  build_and_deploy:
+    executor: node/default
+    steps:
+      - checkout
       - run:
           name: Install dependencies in the root folder
           command: npm install
@@ -20,11 +25,6 @@ jobs:
       - run:
           name: Build React app
           command: cd client && npm run build
-
-  build_and_deploy:
-    executor: node/default
-    steps:
-      - checkout
       - run:
           name: Build the client and server
           command: npm run build
