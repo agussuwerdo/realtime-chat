@@ -12,7 +12,7 @@ help:
 
 # Install dependencies
 install:
-	@npm install && cd client npm install
+	@npm install && cd client && npm install
 
 # Build the React client
 build:
