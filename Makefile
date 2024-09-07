@@ -20,7 +20,7 @@ build:
 
 # Start the Node.js server in development mode with nodemon
 dev:
-	@npm run dev
+	@make build && npm run dev
 
 # Start the React client
 react:

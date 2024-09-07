@@ -33,7 +33,12 @@ jobs:
           command: npm install vercel
       - run:
           name: Deploy to Vercel
-          command: VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes;
+            else
+              VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --yes;
+            fi
 
 workflows:
   version: 2
