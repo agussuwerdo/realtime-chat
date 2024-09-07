@@ -4,11 +4,32 @@ function Message({ messageData, username, deleteMessage }) {
   const [isDeleting, setIsDeleting] = useState(false); // Add state to track deleting status
   const isOwnMessage = messageData.username === username;
 
-  // Format the timestamp to show hours and minutes
-  const formattedTime = new Date(messageData.timestamp).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // Function to calculate time ago
+  const getTimeAgo = (timestamp) => {
+    const now = new Date();
+    const messageTime = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - messageTime) / 1000);
+
+    const intervals = [
+      { label: "year", seconds: 31536000 }, // 365 * 24 * 60 * 60
+      { label: "month", seconds: 2592000 }, // 30 * 24 * 60 * 60
+      { label: "day", seconds: 86400 }, // 24 * 60 * 60
+      { label: "hour", seconds: 3600 }, // 60 * 60
+      { label: "minute", seconds: 60 },
+      { label: "second", seconds: 1 },
+    ];
+
+    for (const interval of intervals) {
+      const timeAgo = Math.floor(diffInSeconds / interval.seconds);
+      if (timeAgo >= 1) {
+        return `${timeAgo} ${interval.label}${timeAgo > 1 ? "s" : ""} ago`;
+      }
+    }
+    return "just now";
+  };
+
+  // Get the human-readable formatted time
+  const formattedTime = getTimeAgo(messageData.timestamp);
 
   const handleDelete = async () => {
     setIsDeleting(true); // Start loading state
