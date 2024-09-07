@@ -1,0 +1,8 @@
+/* client/src/App.css */
+
+/* Basic reset or custom styles can go here */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f0f0;
+}
