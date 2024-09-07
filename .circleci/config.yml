@@ -23,17 +23,16 @@ jobs:
           name: Install dependencies in the client folder
           command: cd client && npm install
       - run:
-          name: Build React app
-          command: cd client && npm run build
-      - run:
-          name: Build the client and server
-          command: npm run build
-      - run:
           name: Install Vercel CLI
           command: npm install vercel
       - run:
           name: Deploy to Vercel
-          command: VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              make build && VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes;
+            else
+              make build && VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --yes;
+            fi
 
 workflows:
   version: 2
