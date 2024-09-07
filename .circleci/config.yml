@@ -9,8 +9,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: make install
+          name: Print folder structure
+          command: ls -R  # Print the entire folder structure recursively
+      - run:
+          name: Install dependencies in the root folder
+          command: npm install
+      - run:
+          name: Install dependencies in the client folder
+          command: cd client && npm install
 
   build_and_deploy:
     executor: node/default
