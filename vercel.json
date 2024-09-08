@@ -19,9 +19,5 @@
     { "src": "/client/(.*)", "dest": "/client/$1/$2" },
     { "src": "/public/(.*)", "dest": "/public/$1/$2" },
     { "src": "/(.*)", "dest": "/server/index.js" }
-  ],
-  "env": {
-    "REACT_APP_PUSHER_KEY": "@react-app-pusher-key",
-    "REACT_APP_PUSHER_CLUSTER": "@react-app-pusher-cluster"
-  }
+  ]
 }

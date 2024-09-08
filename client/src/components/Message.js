@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Message({ messageData, username, deleteMessage }) {
   const [isDeleting, setIsDeleting] = useState(false); // Add state to track deleting status
   const isOwnMessage = messageData.username === username;
+  // State to trigger re-render for time ago updates
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Function to calculate time ago
   const getTimeAgo = (timestamp) => {
-    const now = new Date();
+    const now = currentTime;
     const messageTime = new Date(timestamp);
     const diffInSeconds = Math.floor((now - messageTime) / 1000);
 
@@ -30,6 +32,14 @@ function Message({ messageData, username, deleteMessage }) {
 
   // Get the human-readable formatted time
   const formattedTime = getTimeAgo(messageData.timestamp);
+  // Automatically update the timeAgo every 60 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 30000); // Update every 30s
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
 
   const handleDelete = async () => {
     setIsDeleting(true); // Start loading state

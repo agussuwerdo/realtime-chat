@@ -55,6 +55,8 @@ function App() {
     if (username.trim() !== "") {
       localStorage.setItem("username", username);
       setIsChatVisible(true);
+    } else {
+      console.log("Username cannot be empty");
     }
   };
 
@@ -90,6 +92,11 @@ function App() {
             placeholder="Enter your name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                joinChat();
+              }
+            }}
             className="w-full p-4 border border-gray-300 rounded-lg mb-6 shadow-sm focus:outline-none focus:ring-4 focus:ring-indigo-400 transition duration-300"
           />
           <button

@@ -26,6 +26,9 @@ jobs:
           name: Install Vercel CLI
           command: npm install vercel
       - run:
+          name: Build App
+          command: make build
+      - run:
           name: Print folder structure before deploy
           command: |
             find . \
@@ -37,9 +40,9 @@ jobs:
           name: Deploy to Vercel
           command: |
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              make build && VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes;
+              VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --prod --yes;
             else
-              make build && VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --yes;
+              VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID VERCEL_ORG_ID=$VERCEL_ORG_ID ./node_modules/.bin/vercel --token $VERCEL_TOKEN --yes;
             fi
 
 workflows:
