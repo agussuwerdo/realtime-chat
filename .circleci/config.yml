@@ -27,7 +27,12 @@ jobs:
           command: npm install vercel
       - run:
           name: Print folder structure before deploy
-          command: ls -R
+          command: |
+            find . \
+            -path ./node_modules -prune -o \
+            -path ./client/node_modules -prune -o \
+            -path ./.git -prune -o \
+            -print
       - run:
           name: Deploy to Vercel
           command: |
